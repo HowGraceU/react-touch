@@ -41,7 +41,7 @@ function Header() {
 			</li>
 			<li><Link to="/code-splitting">code-splitting</Link></li>
 			<li><Link to="/context">context</Link></li>
-			<li><Link to="/error-boundaries">error-boundary</Link></li>
+			<li><Link to="/error-boundary">error-boundary</Link></li>
 			<li><Link to="/refs">refs</Link></li>
 			<li><Link to="/HOC">HOC</Link></li>
 		</ul>
