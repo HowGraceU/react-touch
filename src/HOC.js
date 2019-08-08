@@ -20,16 +20,14 @@ function HocName() {
 	)
 }
 
-
-export @createStorageWarp('time') class HocTime extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
+@createStorageWarp('time')
+class HocTime extends React.Component {
 	render() {
-		return <StorageWarp>{this.props.data}</StorageWarp>
+		return <div>{this.props.data}</div>
 	}
 }
+
+export { HocTime };
 
 function StorageWarp(props) {
 	return (<div>{props.data}</div>)
