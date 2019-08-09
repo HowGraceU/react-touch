@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WithStorage, { createStorageWarp } from './withStorage';
 
 localStorage.name = 'react test';
 localStorage.time = new Date();
 
 export function HOC() {
+	const [count, setCount] = useState(0);
+
 	return (
 		<>
 			<HocName />
 			<HocTime />
+			<button onClick={() => setCount(count + 1)}>render</button>
 		</>
 	)
 }
 
+const HocDom = WithStorage(StorageWarp, 'name');
 function HocName() {
-	const HocDom = WithStorage(StorageWarp, 'name');
 	return (
 		<HocDom />
 	)
