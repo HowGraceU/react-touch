@@ -5,8 +5,14 @@ import React, {
 export default function WithStorage(WrappedComponent, Key) {
 	return class extends Component {
 		static displayName = `WithSubscription(${getDisplayName(WrappedComponent)})`;
+		constructor(props) {
+			super(props);
+			this.state = {
+				data: null
+			}
+		}
 
-		componentWillMount() {
+		componentDidMount() {
 			let data = localStorage.getItem(Key)
 			this.setState({
 				data
@@ -14,7 +20,7 @@ export default function WithStorage(WrappedComponent, Key) {
 		}
 
 		render() {
-			return <WrappedComponent data = {
+			return this.state.data && <WrappedComponent data = {
 				this.state.data
 			} {
 				...this.props

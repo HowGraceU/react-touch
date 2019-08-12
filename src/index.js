@@ -8,30 +8,40 @@ import { ErrorBoundary } from "./error-boundary";
 import { Refs } from "./refs";
 import { HOC } from "./HOC";
 import { Avoid } from './avoid-reconciliation';
+import { Portal } from './portals';
+import { RenderProps } from './render-props';
+import { Component } from './component';
+import Hooks from './hooks';
 
 const CodeSplitting = lazy(() => import('./code-splitting'));
 
 function App() {
 	return (
-		<Router>
-			<div className="container">
-				<Header />
+		<React.StrictMode>
+			<Router>
+				<div className="container">
+					<Header />
 
-				<div className="right">
-					<Suspense fallback={<div>Loading...</div>}>
-						<Switch>
-							<Route exact path="/" component={Home} />
-							<Route path="/code-splitting" component={CodeSplitting} />
-							<Route path="/context" component={Context} />
-							<Route path="/error-boundary" component={ErrorBoundary} />
-							<Route path="/refs" component={Refs} />
-							<Route path="/HOC" component={HOC} />
-							<Route path="/avoid-reconciliation" component={Avoid} />
-						</Switch>
-					</Suspense>
+					<div className="right">
+						<Suspense fallback={<div>Loading...</div>}>
+							<Switch>
+								<Route exact path="/" component={Home} />
+								<Route path="/code-splitting" component={CodeSplitting} />
+								<Route path="/context" component={Context} />
+								<Route path="/error-boundary" component={ErrorBoundary} />
+								<Route path="/refs" component={Refs} />
+								<Route path="/HOC" component={HOC} />
+								<Route path="/avoid-reconciliation" component={Avoid} />
+								<Route path="/portal" component={Portal} />
+								<Route path="/render-props" component={RenderProps} />
+								<Route path="/component" component={Component} />
+								<Route path="/hooks" component={Hooks} />
+							</Switch>
+						</Suspense>
+					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</React.StrictMode>
 	);
 }
 
@@ -47,6 +57,10 @@ function Header() {
 			<li><Link to="/refs">refs</Link></li>
 			<li><Link to="/HOC">HOC</Link></li>
 			<li><Link to="/avoid-reconciliation">avoid-reconciliation</Link></li>
+			<li><Link to="/portal">portal</Link></li>
+			<li><Link to="/render-props">render-props</Link></li>
+			<li><Link to="/component">component</Link></li>
+			<li><Link to="/hooks">hooks</Link></li>
 		</ul>
 	);
 }

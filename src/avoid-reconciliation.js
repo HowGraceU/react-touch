@@ -14,12 +14,16 @@ export class Avoid extends Component {
 	}
 
 	componentDidMount() {
-		setInterval(() => {
+		this.timer = setInterval(() => {
 			this.setState({
 				name: this.state.name,
 				son: this.state.son
 			})
 		}, 1 * 1000)
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timer);
 	}
 
 	render() {
@@ -47,10 +51,6 @@ class Son2 extends React.Component {
 }
 
 class Son3 extends React.PureComponent {
-	shouldComponentUpdate(nextProps, nextState) {
-		return this.props.son !== nextProps.son;
-	}
-
 	render() {
 		console.log("--son3--render----")
 		return <div> Son3: {this.props.son}</div>

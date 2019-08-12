@@ -36,11 +36,17 @@ function CallbackRefs() {
 		input.focus();
 	}
 
+	function handleChange(e) {
+		console.log(e.target.value);
+	}
+
 	return (
 		<>
 			<input
 				type="text"
 				ref={setInput}
+				onChange={handleChange}
+				onInput={handleChange}
 			/>
 			<input
 				type="button"
