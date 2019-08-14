@@ -12,6 +12,7 @@ import { Portal } from './portals';
 import { RenderProps } from './render-props';
 import { Component } from './component';
 import Hooks from './hooks';
+import TouchRouter from './router';
 
 const CodeSplitting = lazy(() => import('./code-splitting'));
 
@@ -36,6 +37,7 @@ function App() {
 								<Route path="/render-props" component={RenderProps} />
 								<Route path="/component" component={Component} />
 								<Route path="/hooks" component={Hooks} />
+								<Route path="/router" component={TouchRouter} />
 							</Switch>
 						</Suspense>
 					</div>
@@ -61,6 +63,7 @@ function Header() {
 			<li><Link to="/render-props">render-props</Link></li>
 			<li><Link to="/component">component</Link></li>
 			<li><Link to="/hooks">hooks</Link></li>
+			<li><Link to="/router">router</Link></li>
 		</ul>
 	);
 }

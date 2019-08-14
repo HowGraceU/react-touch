@@ -10,13 +10,13 @@ export function UseMemo() {
 
 	function dbCount2() {
 		console.log('calc dbCount2');
-		return 2 * count2
+		return 2 * count
 	}
 
 	const memoDbCount2 = useMemo(() => {
-		console.log('calc memoDbCount2');
-		return dbCount2()
-	}, [count2])
+		console.log('calc memoDbCount2', count2);
+		return 2 * count2
+	}, [count2 === 3])
 
 	return (
 		<>
