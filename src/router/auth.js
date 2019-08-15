@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Route, Link, Redirect } from "react-router-dom";
+import React, { useState, useCallback } from 'react';
+import { Route, Link, Redirect, withRouter } from "react-router-dom";
 
 export function Auth({ match }) {
+	console.log(match)
 	return (
 		<>
-			<h2>UrlParameter</h2>
+			<h2>Auth</h2>
+
 			<ul>
 				<li>
 					<Link to={`${match.url}/public`}>public</Link>
@@ -14,9 +16,11 @@ export function Auth({ match }) {
 				</li>
 			</ul>
 
+			<AuthButton url={match.url} />
+
 			<Route path={`${match.url}/public`} component={() => <span>public</span>} />
 			<Route path={`${match.url}/login`} component={Login} />
-			<PrivateRoute match={match} path="/protected" component={() => <span>protected</span>} />
+			<PrivateRoute url={match.url} path={`${match.url}/protected`} component={() => <span>protected</span>} />
 		</>
 	)
 }
@@ -33,21 +37,61 @@ const fakeAuth = {
 	}
 };
 
-function PrivateRoute(props) {
+function PrivateRoute({ url, component: Component, ...props }) {
 	return (
-		fakeAuth.isAuthenticated ?
-			<Route {...props} /> :
-			<Redirect to={{
-				pathname: `${props.match.url}/login`,
-				state: { from: props.location }
-			}} />
+		<Route
+			{...props}
+			render={
+				props => {
+					return fakeAuth.isAuthenticated ?
+						<Component {...props} /> :
+						<Redirect to={{
+							pathname: `${url}/login`,
+							state: { from: props.location }
+						}} />
+				}
+			}
+		/>
 	)
 }
 
+const AuthButton = withRouter(
+	({ history, url }) => {
+		console.log(history)
+		return fakeAuth.isAuthenticated ? (
+			<p>
+				Welcome!{" "}
+				<button
+					onClick={() => {
+						fakeAuth.signout(() => history.push(url));
+					}}
+				>
+					Sign out
+        </button>
+			</p>
+		) : (
+				<p>You are not logged in.</p>
+			)
+	}
+);
+
 function Login({ location }) {
 	const [isAuth, setAuth] = useState(fakeAuth.isAuthenticated);
+	const { pathname = '/' } = location.state.from;
 
-	console.log(location);
+	const login = useCallback(() => {
+		fakeAuth.authenticate(() => {
+			setAuth(true);
+		})
+	}, [])
 
-	return <span />
+	return (
+		isAuth ?
+			<Redirect to={pathname} /> :
+			<>
+				<span>plz login for {pathname}</span>
+				<br />
+				<button onClick={login}>login</button>
+			</>
+	)
 }
