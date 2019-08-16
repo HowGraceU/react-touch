@@ -13,6 +13,7 @@ import { RenderProps } from './render-props';
 import { Component } from './component';
 import Hooks from './hooks';
 import TouchRouter from './router';
+import Redux from './redux';
 
 const CodeSplitting = lazy(() => import('./code-splitting'));
 
@@ -38,6 +39,7 @@ function App() {
 								<Route path="/component" component={Component} />
 								<Route path="/hooks" component={Hooks} />
 								<Route path="/router" component={TouchRouter} />
+								<Route path="/redux" component={Redux} />
 							</Switch>
 						</Suspense>
 					</div>
@@ -64,6 +66,7 @@ function Header() {
 			<li><Link to="/component">component</Link></li>
 			<li><Link to="/hooks">hooks</Link></li>
 			<li><Link to="/router">router</Link></li>
+			<li><Link to="/redux">redux</Link></li>
 		</ul>
 	);
 }
