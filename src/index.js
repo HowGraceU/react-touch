@@ -15,6 +15,7 @@ import Hooks from './hooks';
 import TouchRouter from './router';
 import Redux from './redux';
 import Mobx from './mobx';
+import Apollo from './apollo';
 
 const CodeSplitting = lazy(() => import('./code-splitting'));
 
@@ -42,6 +43,7 @@ function App() {
 								<Route path="/router" component={TouchRouter} />
 								<Route path="/redux" component={Redux} />
 								<Route path="/mobx" component={Mobx} />
+								<Route path="/apollo" component={Apollo} />
 							</Switch>
 						</Suspense>
 					</div>
@@ -70,6 +72,7 @@ function Header() {
 			<li><Link to="/router">router</Link></li>
 			<li><Link to="/redux">redux</Link></li>
 			<li><Link to="/mobx">mobx</Link></li>
+			<li><Link to="/apollo">apollo</Link></li>
 		</ul>
 	);
 }
