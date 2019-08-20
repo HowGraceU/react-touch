@@ -1,42 +1,10 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
 
-import { observable, autorun } from 'mobx';
-
-const todoStore = observable({
-	/* 一些观察的状态 */
-	todos: [],
-
-	count: 0,
-	/* 推导值 */
-	get completedCount() {
-		return this.todos.filter(todo => todo.completed).length;
-	}
-});
-
-/* 观察状态改变的函数 */
-autorun(function () {
-	console.log("Completed %d of %d items",
-		todoStore.completedCount,
-		todoStore.todos.length
-	);
-});
-
-autorun(function () {
-	console.log('count', todoStore.count);
-});
-
-/* ..以及一些改变状态的动作 */
-todoStore.todos[0] = {
-	title: "Take a walk",
-	completed: false
-};
-// -> 同步打印 'Completed 0 of 1 items'
-
-todoStore.todos[0].completed = true;
-// -> 同步打印 'Completed 1 of 1 items'
-
-todoStore.count++;
+import './no-react';
+import { MyObserver } from './observer';
+import { UseLocalStore } from './useLocalStore';
+import { MyProvider } from './provider';
 
 export default function Topics({ match }) {
 	return (
@@ -44,10 +12,14 @@ export default function Topics({ match }) {
 			<h2>mobx</h2>
 
 			<ul>
-				{/* <li><Link to={`${match.url}/react-redux`}>react-redux</Link></li> */}
+				<li><Link to={`${match.url}/observer`}>observer</Link></li>
+				<li><Link to={`${match.url}/useLocalStore`}>useLocalStore</Link></li>
+				<li><Link to={`${match.url}/provider`}>provider</Link></li>
 			</ul>
 
-			{/* <Route path={`${match.path}/react-redux`} component={reactRedux} /> */}
+			<Route path={`${match.path}/observer`} component={MyObserver} />
+			<Route path={`${match.path}/useLocalStore`} component={UseLocalStore} />
+			<Route path={`${match.path}/provider`} component={MyProvider} />
 		</div>
 	);
 }
