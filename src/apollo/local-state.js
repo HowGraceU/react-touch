@@ -1,5 +1,5 @@
-import React from "react";
-import { ApolloProvider, useQuery } from '@apollo/react-hooks';
+import React, { useState } from "react";
+import { ApolloProvider, useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { localClient } from './no-react';
 
@@ -34,7 +34,14 @@ function ShowNewClientData() {
 	return <div>{data.clientResolver}</div>
 }
 
-const Get_Dogs = gql`
+
+const ADD_DOG = gql`
+	mutation AddDog($breed: String) {
+		dog: addDog(breed: $breed) @client
+	}
+`;
+
+const GET_DOGS = gql`
 	{
 		dogs @client {
 			id
@@ -43,8 +50,24 @@ const Get_Dogs = gql`
 	}
 `;
 
+function AddDog() {
+	const [breed, setBreed] = useState('');
+	const [addDog] = useMutation(
+		ADD_DOG
+	);
+
+	return (
+		<>
+			<div>
+				<input type="text" onChange={e => setBreed(e.target.value)} />
+				<button onClick={() => addDog({ variables: { breed } })}>add</button>
+			</div>
+		</>
+	)
+}
+
 function ShowDogs() {
-	const { data, loading, error } = useQuery(Get_Dogs);
+	const { data, loading, error } = useQuery(GET_DOGS);
 
 	if (loading) return <div>loading...</div>
 	if (error) return <div>error...</div>
@@ -64,6 +87,7 @@ export function LocalState() {
 			<ShowClientData />
 			{/* 注释下面组件，ShowClientData 永远显示cache的值 */}
 			<ShowNewClientData />
+			<AddDog />
 			<ShowDogs />
 		</ApolloProvider>
 	)
