@@ -29,7 +29,10 @@ export const localClient = new ApolloClient({
   cache,
   resolvers: {
     Query: {
-      clientResolver: () => 'client resolvers'
+      clientResolver: () => {
+				console.log('get client')
+				return new Date().toString()
+			}
     }
   },
 });

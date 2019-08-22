@@ -62,6 +62,7 @@ export function LocalState() {
 	return (
 		<ApolloProvider client={localClient}>
 			<ShowClientData />
+			{/* 注释下面组件，ShowClientData 永远显示cache的值 */}
 			<ShowNewClientData />
 			<ShowDogs />
 		</ApolloProvider>
